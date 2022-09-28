@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'dart:ui' as ui;
 
 import 'package:flutter/services.dart';
+import 'package:hello_flutter/utils/utilities.dart';
 
 class Bubble extends StatefulWidget {
   final int bubblesInRow;
@@ -26,13 +27,7 @@ class BubbleState extends State<Bubble> {
   @override
   Widget build(BuildContext context) {
     if (isPopped) {
-      AudioCache audioCache = AudioCache();
-      AudioPlayer audioPlayer = AudioPlayer();
-
-      audioPlayer.audioCache = audioCache;
-
-      AssetSource assetSource = AssetSource("audio/pop_sound.mp3");
-      audioPlayer.play(assetSource);
+      Utilities.play("audio/pop_sound.mp3");
 
       return SizedBox(
           width: MediaQuery.of(context).size.width / bubblesInColumn,
