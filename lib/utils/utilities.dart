@@ -1,20 +1,8 @@
 import 'package:audioplayers/audioplayers.dart';
-import 'package:flutter/material.dart';
-
-import '../bubble.dart';
 
 class Utilities {
-
-  static List<Widget> getRowsXColsBubbles(int rows, int cols) {
-    return generateList(rows).map((row) {
-
-      List<Bubble> rowChildren = generateList(cols).map((col) => Bubble(bubblesInRow: rows, bubblesInColumn: cols)).toList();
-
-      return Row(children: rowChildren);
-    }).toList();
-  }
-
-  static List<int> generateList(int num) => List.generate(num, (index) => identity(index));
+  static List<int> generateList(int num) =>
+      List.generate(num, (index) => identity(index));
 
   static T identity<T>(T x) => x;
 
@@ -22,15 +10,23 @@ class Utilities {
   //is created for audio player and multiple concurrent requests are received,
   //then since audio player instance is single, some requests are not served as
   //other requests are being played. Also, lag increases in playing a sound.
-  static void play(String pathToFile) {
+  static void play(String pathToFile,
+      {bool isLowLatencyNeeded = true, Function? completionCallback}) {
     AudioCache audioCache = AudioCache();
     AudioPlayer audioPlayer = AudioPlayer();
 
-    audioPlayer.setPlayerMode(PlayerMode.lowLatency);
+    if (isLowLatencyNeeded) audioPlayer.setPlayerMode(PlayerMode.lowLatency);
 
     audioPlayer.audioCache = audioCache;
 
     AssetSource assetSource = AssetSource(pathToFile);
+
+    if (completionCallback != null) {
+      audioPlayer.onPlayerComplete.listen((event) {
+        completionCallback();
+      });
+    }
+
     audioPlayer.play(assetSource);
   }
 }

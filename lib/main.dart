@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:hello_flutter/utils/utilities.dart';
+import 'package:hello_flutter/element_orchestrator.dart';
+import 'package:hello_flutter/element_request.dart';
+import 'package:hello_flutter/enum/element_type.dart';
+import 'package:hello_flutter/factory/level_factory.dart';
+import 'package:hello_flutter/level/LevelImpl.dart';
+import 'package:hello_flutter/level/level_widget.dart';
 
-import 'bubble.dart';
+import 'level/level.dart';
 
 void main() {
   runApp(const MyApp());
@@ -66,30 +71,26 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    print(MediaQuery.of(context).size.width);
-    print(MediaQuery.of(context).size.height);
     // This method is rerun every time setState is called, for instance as done
     // by the _incrementCounter method above.
     //
     // The Flutter framework has been optimized to make rerunning build methods
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
+
+    Level level = LevelFactory.getLevel("A", context);
+
     return Scaffold(
-      body: Stack(
-        children: <Widget>[
-          Container(
-            decoration: const BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage("assets/images/letter_A.png"),
-                fit: BoxFit.fill,
-              ),
-            ),
-            // padding: const EdgeInsets.only(top: 500.0),
-            // child: const Bubble() /* add child content here */,
-          ),
-          Column(children: Utilities.getRowsXColsBubbles(MediaQuery.of(context).size.height ~/ 100, MediaQuery.of(context).size.width ~/ 80),),
-        ],
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      body: Container(
+        alignment: Alignment.center,
+        child: FloatingActionButton.extended(
+        onPressed: () {
+          Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) => LevelState(level: level)));
+        },
+          label: const Text("Start!"),
+      ),
+      )// This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }

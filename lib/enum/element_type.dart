@@ -1,0 +1,3 @@
+enum ElementType {
+  bubble
+}
