@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:hello_flutter/elements/element.dart' as application_element;
 import 'package:hello_flutter/utils/utilities.dart';
 
@@ -14,6 +15,7 @@ class Bubble extends application_element.Element {
   @override
   void destroyElement() {
     Utilities.play(pathToElementTapSound);
+    HapticFeedback.heavyImpact();
 
     destroyElementOrchestratorCallback();
   }
