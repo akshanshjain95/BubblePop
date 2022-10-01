@@ -51,7 +51,7 @@ class ElementWidgetState extends State<ElementWidget> {
           child: InkWell(
               onTap: onTap,
               child: Image.asset(
-                  element.pathToElementImage, //'assets/images/t_buuble3.png'
+                  element.pathToElementImage,
                   width: MediaQuery.of(context).size.width /
                       element.elementsInColumn,
                   height: MediaQuery.of(context).size.height /

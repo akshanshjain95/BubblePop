@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:hello_flutter/element_orchestrator.dart';
-import 'package:hello_flutter/element_request.dart';
-import 'package:hello_flutter/enum/element_type.dart';
 import 'package:hello_flutter/factory/level_factory.dart';
-import 'package:hello_flutter/level/LevelImpl.dart';
 import 'package:hello_flutter/level/level_widget.dart';
 
 import 'level/level.dart';
@@ -19,7 +15,6 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    // SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
 
     return MaterialApp(
@@ -85,16 +80,16 @@ class _MyHomePageState extends State<MyHomePage> {
     Level level = LevelFactory.getLevel("A", context);
 
     return Scaffold(
-      body: Container(
-        alignment: Alignment.center,
-        child: FloatingActionButton.extended(
+        body: Container(
+      alignment: Alignment.center,
+      child: FloatingActionButton.extended(
         onPressed: () {
           Navigator.of(context).push(MaterialPageRoute(
               builder: (context) => LevelState(level: level)));
         },
-          label: const Text("Start!"),
+        label: const Text("Start!"),
       ),
-      )// This trailing comma makes auto-formatting nicer for build methods.
-    );
+    ) // This trailing comma makes auto-formatting nicer for build methods.
+        );
   }
 }
